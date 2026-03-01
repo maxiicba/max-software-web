@@ -1,5 +1,11 @@
 {
+  "name": "maxsoftware-web",
+  "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
-    "start": "npx serve -l 8080 ."
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
