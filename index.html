@@ -1,659 +1,422 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es" class="snap-y snap-mandatory scroll-pt-16">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>MaxSoftware - Innovación y Eficiencia Operativa</title>
     <!-- Icono de la página (Favicon) -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='4' width='16' height='16' rx='2' ry='2'></rect><rect x='9' y='9' width='6' height='6'></rect><line x1='9' y1='1' x2='9' y2='4'></line><line x1='15' y1='1' x2='15' y2='4'></line><line x1='9' y1='20' x2='9' y2='23'></line><line x1='15' y1='20' x2='15' y2='23'></line><line x1='20' y1='9' x2='23' y2='9'></line><line x1='20' y1='15' x2='23' y2='15'></line><line x1='1' y1='9' x2='4' y2='9'></line><line x1='1' y1='15' x2='4' y2='15'></line></svg>"
-    />
-
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='4' width='16' height='16' rx='2' ry='2'></rect><rect x='9' y='9' width='6' height='6'></rect><line x1='9' y1='1' x2='9' y2='4'></line><line x1='15' y1='1' x2='15' y2='4'></line><line x1='9' y1='20' x2='9' y2='23'></line><line x1='15' y1='20' x2='15' y2='23'></line><line x1='20' y1='9' x2='23' y2='9'></line><line x1='20' y1='15' x2='23' y2='15'></line><line x1='1' y1='9' x2='4' y2='9'></line><line x1='1' y1='15' x2='4' y2='15'></line></svg>">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        
+        :root { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; -webkit-font-smoothing: antialiased; }
 
-      :root {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: "Inter", sans-serif;
-        overflow-x: hidden;
-        width: 100%;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      .animated-mesh {
-        background-color: #f8fafc;
-        background-image:
-          radial-gradient(
-            at 0% 0%,
-            rgba(59, 130, 246, 0.1) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 100% 0%,
-            rgba(45, 212, 191, 0.1) 0px,
-            transparent 50%
-          ),
-          radial-gradient(
-            at 100% 100%,
-            rgba(59, 130, 246, 0.1) 0px,
-            transparent 50%
-          );
-        background-attachment: fixed;
-      }
-
-      .gradient-text {
-        background: linear-gradient(90deg, #3b82f6, #2dd4bf, #3b82f6);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shine 4s linear infinite;
-      }
-
-      @keyframes shine {
-        to {
-          background-position: 200% center;
+        .animated-mesh {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(45, 212, 191, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
         }
-      }
 
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s ease-out;
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #2dd4bf, #3b82f6);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
 
-      .glass {
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-      }
-      .dark-glass {
-        background: rgba(15, 23, 42, 0.85);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
+        @keyframes shine { to { background-position: 200% center; } }
 
-      /* Marquee de Clientes */
-      @keyframes scroll {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(-50%);
-        }
-      }
-      .marquee-container {
-        display: flex;
-        width: max-content;
-        animation: scroll 40s linear infinite;
-      }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-      .blob {
-        position: absolute;
-        width: 250px;
-        height: 250px;
-        background: linear-gradient(
-          135deg,
-          rgba(59, 130, 246, 0.1),
-          rgba(45, 212, 191, 0.1)
-        );
-        filter: blur(60px);
-        border-radius: 50%;
-        z-index: -1;
-        animation: move 15s infinite alternate;
-      }
-      @media (min-width: 768px) {
-        .blob {
-          width: 600px;
-          height: 600px;
-          filter: blur(80px);
-        }
-      }
-      @keyframes move {
-        from {
-          transform: translate(-5%, -5%);
-        }
-        to {
-          transform: translate(15%, 15%);
-        }
-      }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .dark-glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
 
-      /* Ajustes específicos para evitar zoom en inputs de iOS */
-      input,
-      select,
-      textarea {
-        font-size: 16px !important;
-      }
+        /* Marquee de Clientes Infinito */
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-container { display: flex; width: max-content; animation: scroll 35s linear infinite; }
+        .marquee-container:hover { animation-play-state: paused; }
 
-      @keyframes progress {
-        0% {
-          transform: translateX(-100%);
-        }
-        100% {
-          transform: translateX(100%);
-        }
-      }
+        /* FAQ Toggle */
+        .faq-item[open] summary i { transform: rotate(180deg); }
+
+        /* Prevención de zoom en iOS */
+        input, select, textarea { font-size: 16px !important; }
+
+        @keyframes progress { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
     </style>
-  </head>
-  <body class="animated-mesh text-slate-900">
-    <div class="blob" style="top: -50px; left: -50px"></div>
-    <div
-      class="blob"
-      style="bottom: -50px; right: -50px; animation-delay: -5s"
-    ></div>
+</head>
+<body class="animated-mesh text-slate-900">
 
     <!-- Header -->
-    <header
-      class="fixed w-full bg-white/80 backdrop-blur-md z-[100] border-b border-slate-200/50 h-16"
-    >
-      <div
-        class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between"
-      >
-        <div class="flex items-center space-x-2">
-          <div
-            class="bg-blue-600 p-1.5 rounded-lg shadow-md shadow-blue-500/20"
-          >
-            <i data-lucide="cpu" class="text-white w-5 h-5"></i>
-          </div>
-          <span class="text-xl font-bold tracking-tight text-slate-800"
-            >Max<span class="text-blue-600">Software</span></span
-          >
+    <header class="fixed w-full bg-white/80 backdrop-blur-md z-[100] border-b border-slate-200/50 h-16">
+        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="bg-blue-600 p-1.5 rounded-lg shadow-lg shadow-blue-500/20">
+                    <i data-lucide="cpu" class="text-white w-5 h-5"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-slate-800">Max<span class="text-blue-600">Software</span></span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                <a href="#inicio" class="hover:text-blue-600 transition-colors">Inicio</a>
+                <a href="#clientes" class="hover:text-blue-600 transition-colors">Impacto</a>
+                <a href="#servicios" class="hover:text-blue-600 transition-colors">Servicios</a>
+                <a href="#contacto" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all shadow-md active:scale-95">Contacto</a>
+            </nav>
+
+            <button class="md:hidden p-2 text-slate-600" id="mobile-menu-open">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
-
-        <!-- Desktop Nav -->
-        <nav
-          class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600"
-        >
-          <a href="#inicio" class="hover:text-blue-600 transition-colors"
-            >Inicio</a
-          >
-          <a href="#clientes" class="hover:text-blue-600 transition-colors"
-            >Clientes</a
-          >
-          <a href="#servicios" class="hover:text-blue-600 transition-colors"
-            >Servicios</a
-          >
-          <a
-            href="#contacto"
-            class="px-5 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all shadow-md active:scale-95"
-            >Contacto</a
-          >
-        </nav>
-
-        <!-- Mobile Trigger -->
-        <button
-          class="md:hidden p-2 text-slate-600"
-          id="mobile-menu-open"
-          aria-label="Abrir menú"
-        >
-          <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-      </div>
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div
-      id="mobile-menu"
-      class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[110] opacity-0 pointer-events-none transition-opacity duration-300"
-    >
-      <div
-        class="absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-2xl p-8 transform translate-x-full transition-transform duration-300 flex flex-col"
-      >
-        <button
-          class="self-end p-2 text-slate-600 mb-10"
-          id="mobile-menu-close"
-        >
-          <i data-lucide="x" class="w-8 h-8"></i>
-        </button>
-        <nav class="flex flex-col space-y-8 text-2xl font-bold text-slate-800">
-          <a href="#inicio" class="mobile-link">Inicio</a>
-          <a href="#clientes" class="mobile-link">Clientes</a>
-          <a href="#servicios" class="mobile-link">Servicios</a>
-          <a href="#nosotros" class="mobile-link">Nosotros</a>
-          <a href="#contacto" class="mobile-link text-blue-600">Contacto</a>
-        </nav>
-        <div class="mt-auto pt-10 border-t border-slate-100">
-          <p class="text-sm text-slate-400 font-medium">
-            MaxSoftware &copy; 2025
-          </p>
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[110] opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-2xl p-8 transform translate-x-full transition-transform duration-300 flex flex-col">
+            <button class="self-end p-2 text-slate-600 mb-10" id="mobile-menu-close">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <nav class="flex flex-col space-y-8 text-2xl font-bold text-slate-800">
+                <a href="#inicio" class="mobile-link">Inicio</a>
+                <a href="#clientes" class="mobile-link">Impacto</a>
+                <a href="#servicios" class="mobile-link">Servicios</a>
+                <a href="#nosotros" class="mobile-link">Ingeniería</a>
+                <a href="#contacto" class="mobile-link text-blue-600">Contacto</a>
+            </nav>
         </div>
-      </div>
     </div>
 
     <!-- SECCIÓN 1: HERO -->
-    <section
-      id="inicio"
-      class="snap-start relative min-h-[100svh] flex items-center pt-16"
-    >
-      <div class="max-w-7xl mx-auto px-6 w-full text-center">
-        <div
-          class="reveal inline-block px-4 py-1.5 mb-6 text-[10px] md:text-xs font-bold tracking-widest text-blue-700 uppercase bg-blue-100/50 rounded-full border border-blue-200"
-        >
-          Eficiencia sin fronteras
+    <section id="inicio" class="snap-start relative min-h-[100svh] flex items-center pt-16">
+        <div class="max-w-7xl mx-auto px-6 w-full text-center">
+            <div class="reveal inline-block px-4 py-1.5 mb-6 text-[10px] md:text-xs font-bold tracking-widest text-blue-700 uppercase bg-blue-100/50 rounded-full border border-blue-200">
+                Sistemas que impulsan tu negocio
+            </div>
+            <h1 class="reveal text-4xl sm:text-7xl lg:text-9xl font-black text-slate-900 mb-6 leading-[1.1] tracking-tighter">
+                Potenciamos tu <br><span class="gradient-text">Eficiencia</span>
+            </h1>
+            <p class="reveal text-base sm:text-2xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto">
+                Desarrollamos ingeniería de software enfocada en automatizar procesos críticos y optimizar resultados hoy mismo.
+            </p>
+            <div class="reveal flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#servicios" class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-3">
+                    Soluciones <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#contacto" class="px-8 py-4 glass text-slate-900 rounded-2xl font-bold hover:bg-white transition-all">
+                    Contactar
+                </a>
+            </div>
         </div>
-        <h1
-          class="reveal text-4xl sm:text-7xl lg:text-9xl font-black text-slate-900 mb-6 leading-[1.1] tracking-tighter"
-        >
-          Potenciamos tu <br /><span class="gradient-text">Eficiencia</span>
-        </h1>
-        <p
-          class="reveal text-base sm:text-2xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto"
-        >
-          Desarrollamos ingeniería de software enfocada en automatizar procesos
-          y escalar resultados de forma autónoma.
-        </p>
-        <div
-          class="reveal flex flex-col sm:flex-row justify-center gap-4 px-4 sm:px-0"
-        >
-          <a
-            href="#servicios"
-            class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-3"
-          >
-            Ver Soluciones <i data-lucide="chevron-right" class="w-5 h-5"></i>
-          </a>
-          <a
-            href="#contacto"
-            class="px-8 py-4 glass text-slate-900 rounded-2xl font-bold hover:bg-white transition-all"
-          >
-            Contactar
-          </a>
-        </div>
-      </div>
     </section>
 
-    <!-- SECCIÓN 2: CLIENTES (FULL SCREEN OPTIMIZED) -->
-    <section
-      id="clientes"
-      class="snap-start min-h-[100svh] flex flex-col justify-center py-20 bg-white/40 overflow-hidden relative"
-    >
-      <div class="max-w-7xl mx-auto px-6 w-full mb-12 reveal">
-        <h2 class="text-3xl md:text-6xl font-black text-slate-900 mb-4">
-          Impacto Real
-        </h2>
-        <p class="text-lg text-slate-500 max-w-xl">
-          Empresas que ya transformaron su flujo operativo con nosotros.
-        </p>
-      </div>
+    <!-- SECCIÓN 2: CLIENTES (FULL SCREEN) -->
+    <section id="clientes" class="snap-start min-h-[100svh] flex flex-col justify-center py-20 bg-white/40 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 w-full mb-12 reveal">
+            <h2 class="text-3xl md:text-6xl font-black text-slate-900 mb-4">Impacto Real</h2>
+            <p class="text-lg text-slate-500 max-w-xl leading-relaxed">Empresas que ya transformaron su flujo operativo y escalaron sus resultados con nosotros.</p>
+        </div>
 
-      <div
-        class="reveal py-12 border-y border-slate-200/40 bg-white/30 backdrop-blur-sm"
-      >
-        <div class="marquee-container flex items-center gap-12 md:gap-24">
-          <div class="flex items-center gap-12 md:gap-24 shrink-0 px-6">
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="truck" class="w-8 h-8 text-blue-600"></i>
-              Transporte Rodriguez</span
-            >
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="shopping-bag" class="w-8 h-8 text-blue-600"></i>
-              Ariana Lenceria</span
-            >
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="briefcase" class="w-8 h-8 text-blue-600"></i>
-              Gina Indumentaria</span
-            >
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="factory" class="w-8 h-8 text-blue-600"></i>
-              Lácteos Castel</span
-            >
-          </div>
-          <!-- Duplicate -->
-          <div class="flex items-center gap-12 md:gap-24 shrink-0 px-6">
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="truck" class="w-8 h-8 text-blue-600"></i>
-              Transporte Rodriguez</span
-            >
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="shopping-bag" class="w-8 h-8 text-blue-600"></i>
-              Ariana Lenceria</span
-            >
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="briefcase" class="w-8 h-8 text-blue-600"></i>
-              Gina Indumentaria</span
-            >
-            <span
-              class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"
-              ><i data-lucide="factory" class="w-8 h-8 text-blue-600"></i>
-              Lácteos Castel</span
-            >
-          </div>
+        <div class="reveal py-12 border-y border-slate-200/40 bg-white/30 backdrop-blur-sm">
+            <div class="marquee-container flex items-center gap-12 md:gap-24">
+                <!-- Tanda 1 -->
+                <div class="flex items-center gap-12 md:gap-24 shrink-0 px-6">
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="truck" class="w-8 h-8 text-blue-600"></i> Transporte Rodriguez</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="shopping-bag" class="w-8 h-8 text-blue-600"></i> Ariana Lenceria</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="briefcase" class="w-8 h-8 text-blue-600"></i> Gina Indumentaria</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="factory" class="w-8 h-8 text-blue-600"></i> Lácteos Castel</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="shopping-cart" class="w-8 h-8 text-blue-600"></i> Distrib. MyM</span>
+                </div>
+                <!-- Clon -->
+                <div class="flex items-center gap-12 md:gap-24 shrink-0 px-6">
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="truck" class="w-8 h-8 text-blue-600"></i> Transporte Rodriguez</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="shopping-bag" class="w-8 h-8 text-blue-600"></i> Ariana Lenceria</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="briefcase" class="w-8 h-8 text-blue-600"></i> Gina Indumentaria</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="factory" class="w-8 h-8 text-blue-600"></i> Lácteos Castel</span>
+                    <span class="flex items-center gap-3 text-xl md:text-4xl font-bold text-slate-400 whitespace-nowrap"><i data-lucide="shopping-cart" class="w-8 h-8 text-blue-600"></i> Distrib. MyM</span>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div
-        class="max-w-7xl mx-auto px-6 w-full mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 reveal"
-        style="transition-delay: 0.2s"
-      >
-        <div
-          class="p-6 md:p-8 rounded-3xl bg-blue-50/50 border border-blue-100 flex items-center justify-between md:block"
-        >
-          <span class="text-3xl md:text-5xl font-black text-blue-600 mb-1"
-            >+40%</span
-          >
-          <p
-            class="text-[10px] md:text-sm font-bold text-slate-700 uppercase tracking-widest"
-          >
-            Eficiencia
-          </p>
+        <div class="max-w-7xl mx-auto px-6 w-full mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 reveal" style="transition-delay: 0.2s;">
+            <div class="p-6 md:p-8 rounded-3xl bg-blue-50/50 border border-blue-100 flex items-center justify-between md:block">
+                <span class="text-3xl md:text-5xl font-black text-blue-600 mb-1">+40%</span>
+                <p class="text-[10px] md:text-sm font-bold text-slate-700 uppercase tracking-widest">Ahorro Operativo</p>
+            </div>
+            <div class="p-6 md:p-8 rounded-3xl bg-teal-50/50 border border-teal-100 flex items-center justify-between md:block">
+                <span class="text-3xl md:text-5xl font-black text-teal-600 mb-1">24/7</span>
+                <p class="text-[10px] md:text-sm font-bold text-slate-700 uppercase tracking-widest">Sistemas Activos</p>
+            </div>
+            <div class="p-6 md:p-8 rounded-3xl bg-indigo-50/50 border border-indigo-100 flex items-center justify-between md:block">
+                <span class="text-3xl md:text-5xl font-black text-indigo-600 mb-1">100%</span>
+                <p class="text-[10px] md:text-sm font-bold text-slate-700 uppercase tracking-widest">Escalabilidad</p>
+            </div>
         </div>
-        <div
-          class="p-6 md:p-8 rounded-3xl bg-teal-50/50 border border-teal-100 flex items-center justify-between md:block"
-        >
-          <span class="text-3xl md:text-5xl font-black text-teal-600 mb-1"
-            >24/7</span
-          >
-          <p
-            class="text-[10px] md:text-sm font-bold text-slate-700 uppercase tracking-widest"
-          >
-            Monitoreo
-          </p>
-        </div>
-        <div
-          class="p-6 md:p-8 rounded-3xl bg-indigo-50/50 border border-indigo-100 flex items-center justify-between md:block"
-        >
-          <span class="text-3xl md:text-5xl font-black text-indigo-600 mb-1"
-            >100%</span
-          >
-          <p
-            class="text-[10px] md:text-sm font-bold text-slate-700 uppercase tracking-widest"
-          >
-            Escalabilidad
-          </p>
-        </div>
-      </div>
     </section>
 
     <!-- SECCIÓN 3: SERVICIOS -->
-    <section
-      id="servicios"
-      class="snap-start py-20 min-h-[100svh] flex items-center"
-    >
-      <div class="max-w-7xl mx-auto px-6 w-full">
-        <div class="mb-12 reveal">
-          <h2 class="text-3xl md:text-6xl font-black text-slate-900 mb-4">
-            Nuestros Servicios
-          </h2>
-          <div class="w-16 h-1.5 bg-blue-600 rounded-full"></div>
-        </div>
+    <section id="servicios" class="snap-start py-20 min-h-[100svh] flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <div class="mb-12 reveal text-center">
+                <h2 class="text-3xl md:text-6xl font-black text-slate-900 mb-4">Nuestra Especialidad</h2>
+                <div class="w-20 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
+            </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div
-            class="reveal p-8 rounded-[2rem] glass hover:bg-white transition-all shadow-sm group"
-          >
-            <div
-              class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20"
-            >
-              <i data-lucide="layers" class="text-white w-6 h-6"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal p-8 rounded-[2rem] glass hover:bg-white transition-all shadow-sm group">
+                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/20">
+                        <i data-lucide="layers" class="text-white w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Desarrollo Core</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Software robusto para operaciones críticas, diseñado para durar y escalar sin fricciones.</p>
+                </div>
+                <div class="reveal p-8 rounded-[2rem] glass hover:bg-white transition-all shadow-sm group" style="transition-delay: 0.1s;">
+                    <div class="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-teal-500/20">
+                        <i data-lucide="repeat" class="text-white w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Optimización</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Analizamos tu flujo operativo para eliminar redundancias y cuellos de botella mediante código.</p>
+                </div>
+                <div class="reveal p-8 rounded-[2rem] glass hover:bg-white transition-all shadow-sm group" style="transition-delay: 0.2s;">
+                    <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/20">
+                        <i data-lucide="bot" class="text-white w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Automatización</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Bots y circuitos que trabajan 24/7 sin errores, liberando a tu equipo para lo importante.</p>
+                </div>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-slate-800">
-              Desarrollo Core
-            </h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Sistemas robustos de gestión y plataformas de alto rendimiento
-              diseñadas para escalar.
-            </p>
-          </div>
-          <div
-            class="reveal p-8 rounded-[2rem] glass hover:bg-white transition-all shadow-sm group"
-            style="transition-delay: 0.1s"
-          >
-            <div
-              class="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-teal-500/20"
-            >
-              <i data-lucide="repeat" class="text-white w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-3 text-slate-800">Optimización</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Analizamos tu flujo operativo actual para eliminar redundancias y
-              cuellos de botella.
-            </p>
-          </div>
-          <div
-            class="reveal p-8 rounded-[2rem] glass hover:bg-white transition-all shadow-sm group"
-            style="transition-delay: 0.2s"
-          >
-            <div
-              class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/20"
-            >
-              <i data-lucide="bot" class="text-white w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-3 text-slate-800">
-              Automatización
-            </h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Bots y flujos automatizados que gestionan tareas críticas sin
-              intervención humana.
-            </p>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- SECCIÓN 4: CONTACTO (MOBILE IMPROVED) -->
-    <section
-      id="contacto"
-      class="snap-start py-20 min-h-[100svh] flex items-center"
-    >
-      <div class="max-w-6xl mx-auto px-4 w-full">
-        <div
-          class="reveal bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-100"
-        >
-          <!-- Info Panel -->
-          <div
-            class="bg-blue-600 p-8 md:p-12 text-white md:w-5/12 flex flex-col relative overflow-hidden"
-          >
-            <div class="relative z-10">
-              <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-                Hablemos hoy
-              </h2>
-              <p class="mb-8 text-blue-100 text-base">
-                Cuéntanos sobre tus desafíos operativos y cómo imaginas que la
-                tecnología puede ayudarte.
-              </p>
-            </div>
-            <div class="space-y-6 relative z-10">
-              <div class="flex items-center gap-4 group">
-                <div
-                  class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center shrink-0"
-                >
-                  <i data-lucide="mail" class="w-5 h-5"></i>
+    <!-- SECCIÓN 4: INGENIERÍA / DASHBOARD -->
+    <section id="nosotros" class="snap-start py-20 bg-slate-950 text-white relative min-h-[100svh] flex items-center overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight">Expertos en <br>Ingeniería de Procesos</h2>
+                    <p class="text-slate-400 text-base md:text-lg mb-8 leading-relaxed">En MaxSoftware, no vemos el software como un producto aislado, sino como una pieza de relojería para tu engranaje operativo.</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-4 text-lg"><i data-lucide="zap" class="text-blue-400 w-6 h-6"></i> Velocidad de implementación</li>
+                        <li class="flex items-center gap-4 text-lg"><i data-lucide="shield" class="text-blue-400 w-6 h-6"></i> Seguridad de grado bancario</li>
+                        <li class="flex items-center gap-4 text-lg"><i data-lucide="trending-up" class="text-blue-400 w-6 h-6"></i> Escalabilidad infinita</li>
+                    </ul>
                 </div>
-                <span class="text-sm md:text-base font-medium break-all"
-                  >lopeznietomaximiliano@gmail.com</span
-                >
-              </div>
-              <div class="flex items-center gap-4 group">
-                <div
-                  class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center shrink-0"
-                >
-                  <i data-lucide="phone" class="w-5 h-5"></i>
-                </div>
-                <span class="text-sm md:text-base font-medium"
-                  >+54 9 351 - 6525293</span
-                >
-              </div>
-            </div>
-            <div
-              class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"
-            ></div>
-          </div>
 
-          <!-- Form Panel -->
-          <div class="p-8 md:p-12 md:w-7/12 bg-white">
-            <form id="contact-form" class="space-y-5">
-              <div class="grid grid-cols-1 gap-5">
-                <div class="space-y-2">
-                  <label
-                    class="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1"
-                    >Nombre Completo</label
-                  >
-                  <input
-                    type="text"
-                    name="nombre"
-                    required
-                    class="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all placeholder:text-slate-300"
-                    placeholder="Tu nombre"
-                  />
+                <div class="reveal relative max-w-md mx-auto w-full" style="transition-delay: 0.2s;">
+                    <div class="absolute -inset-10 bg-blue-600/20 blur-[80px] rounded-full"></div>
+                    <div class="dark-glass p-6 sm:p-8 rounded-[2.5rem] border border-white/10 relative overflow-hidden shadow-3xl">
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="flex gap-1.5"><div class="w-3 h-3 rounded-full bg-red-500"></div><div class="w-3 h-3 rounded-full bg-yellow-500"></div><div class="w-3 h-3 rounded-full bg-green-500"></div></div>
+                            <div class="px-2 py-0.5 rounded-full bg-slate-800 text-[10px] font-bold text-slate-400 border border-slate-700 uppercase tracking-widest">Live System</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center"><span class="text-[10px] text-slate-500 block mb-1">Ahorro</span><span class="text-xl font-bold text-green-400">+$12,400</span></div>
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center"><span class="text-[10px] text-slate-500 block mb-1">Auto.</span><span class="text-xl font-bold text-blue-400">98.2%</span></div>
+                        </div>
+                        <div class="space-y-4 font-mono text-[10px] leading-relaxed">
+                            <p class="text-blue-400 opacity-80 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> SYSTEM_LOG: Running optimization...</p>
+                            <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-500 w-[75%] animate-[progress_3s_infinite_linear]"></div></div>
+                            <p class="text-slate-500">> Found 14 bottleneck points.</p>
+                            <p class="text-green-400">> Applying MaxSoftware Fix... [OK]</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="space-y-2">
-                  <label
-                    class="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1"
-                    >Email Profesional</label
-                  >
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    class="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all placeholder:text-slate-300"
-                    placeholder="correo@ejemplo.com"
-                  />
-                </div>
-              </div>
-              <div class="space-y-2">
-                <label
-                  class="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1"
-                  >Interés</label
-                >
-                <select
-                  name="servicio"
-                  class="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none cursor-pointer focus:border-blue-500 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%2364748b%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22m19%209-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px_20px] bg-[right_1.25rem_center] bg-no-repeat"
-                >
-                  <option>Desarrollo de Software</option>
-                  <option>Mejora de Procesos</option>
-                  <option>Automatización</option>
-                  <option>Consultoría</option>
-                </select>
-              </div>
-              <div class="space-y-2">
-                <label
-                  class="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1"
-                  >Mensaje</label
-                >
-                <textarea
-                  name="mensaje"
-                  rows="4"
-                  class="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all resize-none placeholder:text-slate-300"
-                  placeholder="Contanos brevemente tu proyecto..."
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                id="submit-btn"
-                class="w-full py-5 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 shadow-xl shadow-blue-500/20 active:scale-[0.98] transition-all text-sm uppercase tracking-widest mt-2"
-              >
-                Enviar Solicitud
-              </button>
-            </form>
-            <div
-              id="form-status"
-              class="mt-6 p-4 rounded-2xl hidden text-center font-bold text-sm tracking-tight"
-            ></div>
-          </div>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- SECCIÓN 5: TESTIMONIOS -->
+    <section class="snap-start py-20 bg-slate-50 min-h-[100svh] flex items-center overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-16 text-center reveal">Voces de Confianza</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="reveal p-8 bg-white rounded-[2rem] shadow-sm border border-slate-100">
+                    <p class="text-lg italic text-slate-600 mb-8 leading-relaxed">"MaxSoftware transformó nuestra logística. Lo que antes nos tomaba 4 horas de carga manual, ahora se resuelve en segundos con su sistema automatizado."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-600/10 rounded-full flex items-center justify-center font-bold text-blue-600">TR</div>
+                        <div>
+                            <span class="block font-bold text-slate-900">Gerencia Operativa</span>
+                            <span class="text-sm text-slate-400 italic">Transporte Rodriguez</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal p-8 bg-white rounded-[2rem] shadow-sm border border-slate-100" style="transition-delay: 0.2s;">
+                    <p class="text-lg italic text-slate-600 mb-8 leading-relaxed">"Excelente atención y capacidad técnica. Entendieron nuestras necesidades desde el día uno y escalaron nuestra plataforma sin errores."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-600/10 rounded-full flex items-center justify-center font-bold text-blue-600">AL</div>
+                        <div>
+                            <span class="block font-bold text-slate-900">Dirección Comercial</span>
+                            <span class="text-sm text-slate-400 italic">Ariana Lenceria</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 6: FAQ -->
+    <section class="snap-start py-20 bg-white min-h-[100svh] flex items-center">
+        <div class="max-w-3xl mx-auto px-6 w-full">
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-12 reveal text-center">Preguntas Frecuentes</h2>
+            <div class="space-y-4 reveal">
+                <details class="faq-item group p-6 rounded-3xl bg-slate-50 border border-slate-100 cursor-pointer transition-all">
+                    <summary class="flex items-center justify-between font-bold text-lg list-none">
+                        ¿Cuánto toma automatizar un proceso?
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-blue-600 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed text-sm">Depende de la complejidad, pero nuestros desarrollos suelen estar operativos entre 2 a 4 semanas, con impacto inmediato.</p>
+                </details>
+                <details class="faq-item group p-6 rounded-3xl bg-slate-50 border border-slate-100 cursor-pointer transition-all">
+                    <summary class="flex items-center justify-between font-bold text-lg list-none">
+                        ¿Mi empresa es pequeña, esto me sirve?
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-blue-600 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed text-sm">Absolutamente. El software a medida permite que las pequeñas empresas compitan al automatizar tareas que requerirían contratar un equipo completo.</p>
+                </details>
+                <details class="faq-item group p-6 rounded-3xl bg-slate-50 border border-slate-100 cursor-pointer transition-all">
+                    <summary class="flex items-center justify-between font-bold text-lg list-none">
+                        ¿Ofrecen mantenimiento post-entrega?
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-blue-600 transition-transform"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed text-sm">Sí, todos nuestros sistemas incluyen planes de mantenimiento y escalado para que tu software crezca junto a tu negocio.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 7: CONTACTO (MOBILE READY) -->
+    <section id="contacto" class="snap-start py-20 min-h-[100svh] flex items-center">
+        <div class="max-w-6xl mx-auto px-4 w-full">
+            <div class="reveal bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
+                
+                <!-- Info -->
+                <div class="bg-blue-600 p-8 md:p-12 text-white md:w-5/12 flex flex-col justify-between relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Hablemos de tu próximo paso</h2>
+                        <p class="mb-8 text-blue-100 text-sm">Cuéntanos tus desafíos operativos. Te responderemos en menos de 24hs.</p>
+                    </div>
+                    <div class="space-y-6 relative z-10">
+                        <div class="flex items-center gap-4 group cursor-pointer">
+                            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-sm md:text-base font-medium break-all">lopeznietomaximiliano@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-4 group cursor-pointer">
+                            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-sm md:text-base font-medium">+54 9 351 - 6525293</span>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+                </div>
+                
+                <!-- Form -->
+                <div class="p-8 md:p-12 md:w-7/12 bg-white">
+                    <form id="contact-form" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Nombre</label>
+                                <input type="text" name="nombre" required class="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-300" placeholder="Tu nombre">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Email</label>
+                                <input type="email" name="email" required class="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-300" placeholder="correo@ejemplo.com">
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Servicio</label>
+                            <select name="servicio" class="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:border-blue-600 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%2364748b%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%222%22%20d%3D%22m19%209-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px_20px] bg-[right_1.25rem_center] bg-no-repeat cursor-pointer">
+                                <option>Desarrollo de Software</option>
+                                <option>Mejora de Procesos</option>
+                                <option>Automatización de Circuitos</option>
+                                <option>Consultoría General</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Mensaje</label>
+                            <textarea name="mensaje" rows="4" class="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all resize-none placeholder:text-slate-300" placeholder="Detalles de tu proyecto..."></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="w-full py-4 bg-blue-600 text-white rounded-xl font-black hover:bg-blue-700 shadow-xl shadow-blue-500/30 active:scale-95 transition-all text-sm uppercase tracking-widest mt-2">Enviar Solicitud</button>
+                    </form>
+                    <div id="form-status" class="mt-6 p-4 rounded-2xl hidden text-center font-bold text-sm"></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer class="snap-start py-12 border-t border-slate-200 bg-white/50">
-      <div class="max-w-7xl mx-auto px-6 text-center">
-        <span class="text-2xl font-black text-slate-800 tracking-tighter"
-          >Max<span class="text-blue-600">Software</span></span
-        >
-        <p class="text-slate-400 text-xs mt-3 font-medium">
-          Ingeniería que transforma negocios.<br />Argentina &copy; 2025
-        </p>
-      </div>
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <span class="text-2xl font-black text-slate-800 tracking-tighter">Max<span class="text-blue-600">Software</span></span>
+            <p class="text-slate-400 text-xs mt-3 font-medium">Ingeniería que transforma negocios.<br>Argentina &copy; 2025</p>
+        </div>
     </footer>
 
     <script>
-      lucide.createIcons();
+        lucide.createIcons();
 
-      // Observer para animaciones de revelado
-      const reveals = document.querySelectorAll(".reveal");
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) entry.target.classList.add("active");
-          });
-        },
-        { threshold: 0.1 },
-      );
-      reveals.forEach((r) => observer.observe(r));
+        // Reveal Animation
+        const reveals = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add("active");
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(r => observer.observe(r));
 
-      // Menú Mobile logic
-      const mobileMenu = document.getElementById("mobile-menu");
-      const menuSidebar = mobileMenu.querySelector("div");
-      const openBtn = document.getElementById("mobile-menu-open");
-      const closeBtn = document.getElementById("mobile-menu-close");
+        // Mobile Menu logic
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuSidebar = mobileMenu.querySelector('div');
+        const openBtn = document.getElementById('mobile-menu-open');
+        const closeBtn = document.getElementById('mobile-menu-close');
 
-      const toggleMenu = (show) => {
-        if (show) {
-          mobileMenu.classList.remove("pointer-events-none", "opacity-0");
-          menuSidebar.classList.remove("translate-x-full");
-          document.body.style.overflow = "hidden";
-        } else {
-          mobileMenu.classList.add("opacity-0", "pointer-events-none");
-          menuSidebar.classList.add("translate-x-full");
-          document.body.style.overflow = "";
-        }
-      };
+        const toggleMenu = (show) => {
+            if(show) {
+                mobileMenu.classList.remove('pointer-events-none', 'opacity-0');
+                menuSidebar.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                menuSidebar.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            }
+        };
 
-      openBtn.onclick = () => toggleMenu(true);
-      closeBtn.onclick = () => toggleMenu(false);
-      document.querySelectorAll(".mobile-link").forEach((link) => {
-        link.onclick = () => toggleMenu(false);
-      });
+        openBtn.onclick = () => toggleMenu(true);
+        closeBtn.onclick = () => toggleMenu(false);
+        document.querySelectorAll('.mobile-link').forEach(link => link.onclick = () => toggleMenu(false));
 
-      // Formulario Google Sheets
-      const form = document.getElementById("contact-form");
-      const status = document.getElementById("form-status");
-      const btn = document.getElementById("submit-btn");
-      const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbykTp1Ef8pbLxxrCtWGqUuNzRe2D8yd817kGAJy-iqx4pk8HnUygQ3Gmxb0S4jYk9itDA/exec";
+        // Form Logic
+        const form = document.getElementById("contact-form");
+        const status = document.getElementById("form-status");
+        const btn = document.getElementById("submit-btn");
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykTp1Ef8pbLxxrCtWGqUuNzRe2D8yd817kGAJy-iqx4pk8HnUygQ3Gmxb0S4jYk9itDA/exec";
 
-      form.onsubmit = async (e) => {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.innerText = "PROCESANDO...";
-        try {
-          const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: "POST",
-            body: new FormData(form),
-          });
-          if (response.ok) {
-            form.reset();
-            status.innerText = "¡SOLICITUD ENVIADA!";
-            status.className =
-              "mt-6 p-4 rounded-2xl bg-green-50 text-green-700 block text-xs tracking-widest font-bold";
-          } else throw Error();
-        } catch {
-          status.innerText = "ERROR AL ENVIAR. INTENTA DE NUEVO.";
-          status.className =
-            "mt-6 p-4 rounded-xl bg-red-50 text-red-700 block text-xs font-bold";
-        } finally {
-          btn.disabled = false;
-          btn.innerText = "Enviar Solicitud";
-        }
-      };
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            btn.disabled = true; btn.innerText = "PROCESANDO...";
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: new FormData(form) });
+                if (response.ok) {
+                    form.reset();
+                    status.innerText = "¡SOLICITUD ENVIADA CON ÉXITO!";
+                    status.className = "mt-6 p-4 rounded-2xl bg-green-50 text-green-700 block text-xs tracking-widest font-bold";
+                } else throw Error();
+            } catch {
+                status.innerText = "ERROR AL ENVIAR. INTENTA DE NUEVO.";
+                status.className = "mt-6 p-4 rounded-xl bg-red-50 text-red-700 block text-xs font-bold";
+            } finally { btn.disabled = false; btn.innerText = "Enviar Solicitud"; }
+        };
     </script>
-  </body>
+</body>
 </html>
